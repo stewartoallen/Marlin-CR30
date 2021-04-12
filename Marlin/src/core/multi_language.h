@@ -57,6 +57,7 @@ typedef const char Language_Str[];
 #define GET_LANG(LANG) _GET_LANG(LANG)
 
 #if NUM_LANGUAGES > 1
+  #define HAS_MULTI_LANGUAGE 1
   extern uint8_t lang;
   #define GET_TEXT(MSG) ( \
     lang == 0 ? GET_LANG(LCD_LANGUAGE)::MSG : \

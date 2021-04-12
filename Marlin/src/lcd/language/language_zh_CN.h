@@ -33,6 +33,10 @@ namespace Language_zh_CN {
   constexpr uint8_t    CHARSIZE                            = 3;
   PROGMEM Language_Str LANGUAGE                            = _UxGT("简体中文");
 
+  PROGMEM Language_Str MSG_LANGUAGE                        = _UxGT("Language");
+  PROGMEM Language_Str MSG_ENGLISH_LANGUAGE                = _UxGT("English");
+  PROGMEM Language_Str MSG_CHINESE_LANGUAGE                = _UxGT("Chinese");
+
   PROGMEM Language_Str WELCOME_MSG                         = MACHINE_NAME _UxGT("已就绪.");     //" ready."
   PROGMEM Language_Str MSG_MARLIN                          = _UxGT("马林");
   PROGMEM Language_Str MSG_YES                             = _UxGT("是");

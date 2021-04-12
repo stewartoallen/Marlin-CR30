@@ -67,6 +67,7 @@ void menu_cancelobject();
 void menu_motion();
 void menu_temperature();
 void menu_configuration();
+void menu_language();
 
 #if ENABLED(CUSTOM_USER_MENUS)
   void menu_user();
@@ -219,8 +220,8 @@ void menu_main() {
     #endif
   #endif
 
-  #if ENABLED(LCD_INFO_MENU)
-    SUBMENU(MSG_INFO_MENU, menu_info);
+  #if HAS_MULTI_LANGUAGE
+    SUBMENU(MSG_LANGUAGE, menu_language);
   #endif
 
   #if EITHER(LED_CONTROL_MENU, CASE_LIGHT_MENU)
@@ -323,6 +324,10 @@ void menu_main() {
         #endif
       );
     }
+  #endif
+
+  #if ENABLED(LCD_INFO_MENU)
+    SUBMENU(MSG_INFO_MENU, menu_info);
   #endif
 
   END_MENU();

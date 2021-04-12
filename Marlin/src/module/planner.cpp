@@ -1655,7 +1655,25 @@ float Planner::get_axis_position_mm(const AxisEnum axis) {
 
   #endif
 
-  return axis_steps * steps_to_mm[axis];
+  float axis_mm;
+
+  #if BOTH(BELTPRINTER, BELT_KINEMATICS_DEV)
+
+    axis_mm = axis_steps * steps_to_mm[axis];
+    switch (axis) {
+      case CORE_AXIS_2:         // Y is offset in proportion to (Z - 0)
+        axis_mm += C_TO_B_OFFS(stepper.position(NORMAL_AXIS) * steps_to_mm[NORMAL_AXIS]);
+      case CORE_AXIS_1: break;
+      default: C_TO_Z(axis_mm); // Z is some fraction of C
+    }
+
+  #else
+
+    axis_mm = axis_steps * steps_to_mm[axis];
+
+  #endif
+
+  return axis_mm;
 }
 
 /**
@@ -2761,6 +2779,16 @@ bool Planner::buffer_segment(const float &a, const float &b, const float &c, con
   return true;
 } // buffer_segment()
 
+#if BOTH(BELTPRINTER, BELT_KINEMATICS_DEV)
+  // Each 1mm of "Z" motion requires a slightly greater amount of C motion...
+  constexpr float Z_TO_C(const float z) { return z * (1.0f / sin(RADIANS(BED_TO_TRUSS_ANGLE))); }
+  // As the Belt (C) moves, Z is adjusted. This computes that ratio.
+  // Sine tells us the number of hypotenuse mm for each base mm
+  constexpr float C_TO_Z(const float c) { return c * sin(RADIANS(BED_TO_TRUSS_ANGLE)); }
+  // Positive "C" motion results in negative "B" motion
+  constexpr float C_TO_B_OFFS(const float c) { return c * cos(RADIANS(BED_TO_TRUSS_ANGLE)); }
+#endif
+
 /**
  * Add a new linear movement to the buffer.
  * The target is cartesian. It's translated to
@@ -2779,6 +2807,12 @@ bool Planner::buffer_line(const float &rx, const float &ry, const float &rz, con
 ) {
   xyze_pos_t machine = { rx, ry, rz, e };
   TERN_(HAS_POSITION_MODIFIERS, apply_modifiers(machine));
+
+  #if BOTH(BELTPRINTER, BELT_KINEMATICS_DEV)
+    // Belt Printer uses Z to modify Y, and moves C farther according to the angle
+    machine.b += C_TO_Z(rz);  // The B position is directly affected by the Z axis
+    machine.c = Z_TO_C(rz);
+  #endif
 
   #if IS_KINEMATIC
 

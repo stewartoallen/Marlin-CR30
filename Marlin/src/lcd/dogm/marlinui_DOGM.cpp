@@ -54,6 +54,7 @@
 #include "../../sd/cardreader.h"
 #include "../../module/temperature.h"
 #include "../../module/printcounter.h"
+#include "../../MarlinCore.h"
 
 #if ENABLED(SDSUPPORT)
   #include "../../libs/duration_t.h"
@@ -449,20 +450,22 @@ void MarlinUI::clear_lcd() { } // Automatically cleared by Picture Loop
   inline void draw_boxed_string(const u8g_uint_t x, const u8g_uint_t y, PGM_P const pstr, const bool inv) {
     const u8g_uint_t len = utf8_strlen_P(pstr),
                       by = (y + 1) * (MENU_FONT_HEIGHT);
-    const pixel_len_t bw = len * (MENU_FONT_WIDTH), bx = x * (MENU_FONT_WIDTH);
+    const pixel_len_t bw = len * (12), bx = x * (12);
+    const u8g_uint_t prop = TERN0(HAS_MULTI_LANGUAGE, language_change_font) ? 2 : 1;
     if (inv) {
       u8g.setColorIndex(1);
-      u8g.drawBox(bx - 1, by - (MENU_FONT_ASCENT) + 1, bw + 2, MENU_FONT_HEIGHT - 1);
+      u8g.drawBox(bx / prop - 1, by - (MENU_FONT_ASCENT) + 1, bw / prop + 2, MENU_FONT_HEIGHT - 1);
       u8g.setColorIndex(0);
     }
-    lcd_put_u8str_P(bx, by, pstr);
+    lcd_put_u8str_P(bx / prop, by, pstr);
     if (inv) u8g.setColorIndex(1);
   }
 
   void MenuItem_confirm::draw_select_screen(PGM_P const yes, PGM_P const no, const bool yesno, PGM_P const pref, const char * const string/*=nullptr*/, PGM_P const suff/*=nullptr*/) {
     ui.draw_select_screen_prompt(pref, string, suff);
     draw_boxed_string(1, LCD_HEIGHT - 1, no, !yesno);
-    draw_boxed_string(LCD_WIDTH - (utf8_strlen_P(yes) + 1), LCD_HEIGHT - 1, yes, yesno);
+    const u8g_uint_t xpos = TERN0(HAS_MULTI_LANGUAGE, language_change_font) ? 21 : 11;
+    draw_boxed_string(xpos - (utf8_strlen_P(yes) + 1), LCD_HEIGHT - 1, yes, yesno);
   }
 
   #if ENABLED(SDSUPPORT)

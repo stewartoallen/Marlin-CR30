@@ -351,7 +351,7 @@ void PrintJobRecovery::resume() {
       "G28R0"
     ));
 
-  #else // "G92.9 E0 ..."
+  #elif DISABLED(BELTPRINTER) // "G92.9 E0 ..."
 
     // Set Z to 0, raise Z by info.zraise, and Home (XY only for Cartesian)
     // with no raise. (Only do simulated homing in Marlin Dev Mode.)

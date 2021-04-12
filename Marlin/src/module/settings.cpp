@@ -461,6 +461,11 @@ typedef struct SettingsDataStruct {
   #if ENABLED(SOUND_MENU_ITEM)
     bool buzzer_enabled;
   #endif
+
+  #if HAS_MULTI_LANGUAGE
+    uint8_t language_change_font;                       // M414 S
+  #endif
+
 } SettingsData;
 
 //static_assert(sizeof(SettingsData) <= MARLIN_EEPROM_SIZE, "EEPROM too small to contain SettingsData!");
@@ -1387,6 +1392,13 @@ void MarlinSettings::postprocess() {
     #endif
 
     //
+    // Selected LCD language
+    //
+    #if HAS_MULTI_LANGUAGE
+      EEPROM_WRITE(language_change_font);
+    #endif
+
+    //
     // Report final CRC and Data Size
     //
     if (!eeprom_error) {
@@ -2263,6 +2275,15 @@ void MarlinSettings::postprocess() {
       #if ENABLED(SOUND_MENU_ITEM)
         _FIELD_TEST(buzzer_enabled);
         EEPROM_READ(ui.buzzer_enabled);
+      #endif
+
+      //
+      // Selected LCD language
+      //
+      #if HAS_MULTI_LANGUAGE
+        EEPROM_READ(language_change_font);
+        if (language_change_font != 0 && language_change_font != 1)
+          language_change_font = 1;
       #endif
 
       //
@@ -3849,6 +3870,12 @@ void MarlinSettings::reset() {
       CONFIG_ECHO_START(); SERIAL_ECHO_SP(2); M552_report();
       CONFIG_ECHO_START(); SERIAL_ECHO_SP(2); M553_report();
       CONFIG_ECHO_START(); SERIAL_ECHO_SP(2); M554_report();
+    #endif
+
+    #if HAS_MULTI_LANGUAGE
+      CONFIG_ECHO_HEADING("0:cn 1:en language change font:");
+      CONFIG_ECHO_START();
+      SERIAL_ECHOLNPAIR("  M414 S", int(language_change_font));
     #endif
   }
 

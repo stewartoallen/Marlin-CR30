@@ -1130,6 +1130,8 @@ void setup() {
   SETUP_RUN(settings.first_load());   // Load data from EEPROM if available (or use defaults)
                                       // This also updates variables in the planner, elsewhere
 
+  TERN_(HAS_MULTI_LANGUAGE, lang = language_change_font);
+
   #if HAS_ETHERNET
     SETUP_RUN(ethernet.init());
   #endif

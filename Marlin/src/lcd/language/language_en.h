@@ -45,17 +45,21 @@ namespace Language_en {
   constexpr uint8_t    CHARSIZE                            = 2;
   PROGMEM Language_Str LANGUAGE                            = _UxGT("English");
 
+  PROGMEM Language_Str MSG_LANGUAGE                        = _UxGT("Language");
+  PROGMEM Language_Str MSG_ENGLISH_LANGUAGE                = _UxGT("English");
+  PROGMEM Language_Str MSG_CHINESE_LANGUAGE                = _UxGT("Chinese");
+
   PROGMEM Language_Str WELCOME_MSG                         = MACHINE_NAME _UxGT(" Ready.");
   PROGMEM Language_Str MSG_MARLIN                          = _UxGT("Marlin");
   PROGMEM Language_Str MSG_YES                             = _UxGT("YES");
   PROGMEM Language_Str MSG_NO                              = _UxGT("NO");
   PROGMEM Language_Str MSG_BACK                            = _UxGT("Back");
   PROGMEM Language_Str MSG_MEDIA_ABORTING                  = _UxGT("Aborting...");
-  PROGMEM Language_Str MSG_MEDIA_INSERTED                  = _UxGT("Media Inserted");
-  PROGMEM Language_Str MSG_MEDIA_REMOVED                   = _UxGT("Media Removed");
-  PROGMEM Language_Str MSG_MEDIA_WAITING                   = _UxGT("Waiting for media");
+  PROGMEM Language_Str MSG_MEDIA_INSERTED                  = _UxGT("Card Inserted");
+  PROGMEM Language_Str MSG_MEDIA_REMOVED                   = _UxGT("Card Removed");
+  PROGMEM Language_Str MSG_MEDIA_WAITING                   = _UxGT("Waiting for card");
   PROGMEM Language_Str MSG_SD_INIT_FAIL                    = _UxGT("SD Init Fail");
-  PROGMEM Language_Str MSG_MEDIA_READ_ERROR                = _UxGT("Media read error");
+  PROGMEM Language_Str MSG_MEDIA_READ_ERROR                = _UxGT("Card read error");
   PROGMEM Language_Str MSG_MEDIA_USB_REMOVED               = _UxGT("USB device removed");
   PROGMEM Language_Str MSG_MEDIA_USB_FAILED                = _UxGT("USB start failed");
   PROGMEM Language_Str MSG_KILL_SUBCALL_OVERFLOW           = _UxGT("Subcall Overflow");
@@ -361,7 +365,7 @@ namespace Language_en {
   PROGMEM Language_Str MSG_ERR_EEPROM_INDEX                = _UxGT("EEPROM Index Error");
   PROGMEM Language_Str MSG_ERR_EEPROM_VERSION              = _UxGT("EEPROM Version Error");
   PROGMEM Language_Str MSG_SETTINGS_STORED                 = _UxGT("Settings Stored");
-  PROGMEM Language_Str MSG_MEDIA_UPDATE                    = _UxGT("Media Update");
+  PROGMEM Language_Str MSG_MEDIA_UPDATE                    = _UxGT("Card Update");
   PROGMEM Language_Str MSG_RESET_PRINTER                   = _UxGT("Reset Printer");
   PROGMEM Language_Str MSG_REFRESH                         = LCD_STR_REFRESH _UxGT("Refresh");
   PROGMEM Language_Str MSG_INFO_SCREEN                     = _UxGT("Info Screen");
@@ -393,8 +397,8 @@ namespace Language_en {
   PROGMEM Language_Str MSG_CANCEL_OBJECT                   = _UxGT("Cancel Object");
   PROGMEM Language_Str MSG_CANCEL_OBJECT_N                 = _UxGT("Cancel Object =");
   PROGMEM Language_Str MSG_OUTAGE_RECOVERY                 = _UxGT("Power Outage");
-  PROGMEM Language_Str MSG_MEDIA_MENU                      = _UxGT("Print from Media");
-  PROGMEM Language_Str MSG_NO_MEDIA                        = _UxGT("No Media");
+  PROGMEM Language_Str MSG_MEDIA_MENU                      = _UxGT("Print from Card");
+  PROGMEM Language_Str MSG_NO_MEDIA                        = _UxGT("No Card");
   PROGMEM Language_Str MSG_DWELL                           = _UxGT("Sleep...");
   PROGMEM Language_Str MSG_USERWAIT                        = _UxGT("Click to Resume...");
   PROGMEM Language_Str MSG_PRINT_PAUSED                    = _UxGT("Print Paused");
@@ -437,9 +441,9 @@ namespace Language_en {
   PROGMEM Language_Str MSG_FILAMENTUNLOAD                  = _UxGT("Unload Filament");
   PROGMEM Language_Str MSG_FILAMENTUNLOAD_E                = _UxGT("Unload *");
   PROGMEM Language_Str MSG_FILAMENTUNLOAD_ALL              = _UxGT("Unload All");
-  PROGMEM Language_Str MSG_ATTACH_MEDIA                    = _UxGT("Attach Media");
-  PROGMEM Language_Str MSG_CHANGE_MEDIA                    = _UxGT("Change Media");
-  PROGMEM Language_Str MSG_RELEASE_MEDIA                   = _UxGT("Release Media");
+  PROGMEM Language_Str MSG_ATTACH_MEDIA                    = _UxGT("Attach Card");
+  PROGMEM Language_Str MSG_CHANGE_MEDIA                    = _UxGT("Change Card");
+  PROGMEM Language_Str MSG_RELEASE_MEDIA                   = _UxGT("Release Card");
   PROGMEM Language_Str MSG_ZPROBE_OUT                      = _UxGT("Z Probe Past Bed");
   PROGMEM Language_Str MSG_SKEW_FACTOR                     = _UxGT("Skew Factor");
   PROGMEM Language_Str MSG_BLTOUCH                         = _UxGT("BLTouch");
